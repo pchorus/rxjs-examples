@@ -5,7 +5,7 @@
   "repository": "https://github.com/pchorus/rxjs-examples.git",
   "main": "index.js",
   "scripts": {
-    "test": "karma start karma.conf.js"
+    "test": "karma start karma.conf.js --single-run"
   },
   "dependencies": {
     "rxjs": "^5.4.3"

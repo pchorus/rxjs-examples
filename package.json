@@ -1,0 +1,15 @@
+{
+  "name": "rxjs-examples",
+  "version": "1.0.0",
+  "description": "Examples for RxJS",
+  "repository": "https://github.com/pchorus/rxjs-examples.git",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "rxjs": "^5.4.3"
+  },
+  "author": "",
+  "license": "ISC"
+}

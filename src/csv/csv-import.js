@@ -1,4 +1,3 @@
-const Rx = require('rxjs');
 const Observable = Rx.Observable;
 
 function createObjectsFromCsvByObservable(csv) {
@@ -42,10 +41,3 @@ function createObject(propNames, propValues) {
     return obj;
   }
 }
-
-const str = `Prop1;Prop2;Prop3
-1;2;3
-A;B;C`;
-
-createObjectsFromCsvByObservable(str).subscribe(obj => console.log(obj));
-console.log(createObjectsFromCsvByLoop(str));

@@ -14,14 +14,14 @@ A;B;C`;
     prop3: 'C'
   }];
 
-  it('should import via observables', () => {
+  it('should import correctly', () => {
     const result = [];
-    createObjectsFromCsvByObservable(csv).subscribe(obj => result.push(obj));
+    createObjectsFromCsv(csv).subscribe(obj => result.push(obj));
 
     expect(result).toEqual(expected);
   });
 
-  it('should import via for loops correctly', () => {
-    expect(createObjectsFromCsvByLoop(csv)).toEqual(expected);
+  it('should import without RxJS correctly', () => {
+    expect(createObjectsFromCsvWithoutRx(csv)).toEqual(expected);
   });
 });

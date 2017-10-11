@@ -1,5 +1,3 @@
-const Observable = Rx.Observable;
-
 /**
  * Creates objects from a csv file.
  * First line contains property names.
@@ -28,7 +26,7 @@ const Observable = Rx.Observable;
  * @returns {*|Observable<any>} emitting the resulting objects one by one.
  */
 function createObjectsFromCsv(csv) {
-  const csvLines$ = Observable.from(csv.split('\n'));
+  const csvLines$ = Rx.Observable.from(csv.split('\n'));
 
   // Create Observable for property names.
   let properties$ = csvLines$
@@ -41,7 +39,7 @@ function createObjectsFromCsv(csv) {
     .map(val => val.split(';'))
     .mergeMap(val =>
       // Merging property names and values of current line to an object
-      Observable.zip(properties$, val)
+      Rx.Observable.zip(properties$, val)
         .reduce((acc, curr) => Object.assign(acc, { [curr[0]]: curr[1] }), {}));
 }
 

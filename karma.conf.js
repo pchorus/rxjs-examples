@@ -20,7 +20,9 @@ module.exports = function (config) {
     ],
 
     // list of files to exclude
-    exclude: [],
+    exclude: [
+      'src/index.js'
+    ],
 
     preprocessors: {
       'src/**/*.js': 'coverage'

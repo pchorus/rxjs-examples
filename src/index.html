@@ -1,0 +1,34 @@
+<html lang="en">
+  <head>
+  </head>
+  <body>
+    <fieldset>
+      <span>click count:</span><span id="click-count"></span>
+      <button id="button">Click me!</button>
+      <div>
+        <button id="subscribe-click">Subscribe</button>
+        <button id="unsubscribe-click">Unsubscribe</button>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <span>current interval value: </span><span id="interval-value"></span>
+      <div>
+        <button id="subscribe-interval">Subscribe</button>
+        <button id="unsubscribe-interval">Unsubscribe</button>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <input id="input" type="text" />
+      <span>current input value: </span><span id="input-value"></span>
+      <div>
+        <button id="subscribe-input">Subscribe</button>
+        <button id="unsubscribe-input">Unsubscribe</button>
+      </div>
+    </fieldset>
+
+    <script src="../node_modules/rxjs/bundles/Rx.min.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

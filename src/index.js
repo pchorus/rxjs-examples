@@ -1,6 +1,7 @@
 fromInterval();
 fromButtonClick();
 fromInputWithDebounceTime();
+dragAndDrop();
 
 /**
  * Create observable from interval.
@@ -70,4 +71,22 @@ function fromInputWithDebounceTime() {
       subscription.unsubscribe();
     }
   };
+}
+
+/**
+ * Drag & Drop
+ */
+function dragAndDrop() {
+  const elem = document.querySelector( "#dragdrop" );
+
+  const dragStart$ = Rx.Observable.fromEvent(elem, 'mousedown');
+  const dragMove$ = Rx.Observable.fromEvent(document, 'mousemove');
+  const dragEnd$ = Rx.Observable.fromEvent(document, 'mouseup');
+
+  dragStart$.switchMap(() => dragMove$.takeUntil(dragEnd$))
+    .subscribe(event => {
+      const { x, y } = elem.getBoundingClientRect();
+      elem.style.left = (x + event.movementX) + 'px';
+      elem.style.top = (y + event.movementY) + 'px';
+    });
 }

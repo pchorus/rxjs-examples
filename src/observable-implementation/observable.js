@@ -1,9 +1,5 @@
-// Observables are functions that take an observer
-// Operators are functions that take an observable and return another observable
-
-// ---1---2---3|
-// map(val => val * 2)
-// ---2---4---6|
+// Observables are functions that take an observer.
+// Operators are functions that take an observable and return another observable.
 
 /////////////////////////////
 // Observables with functions
@@ -24,20 +20,9 @@ function map(observable, fn) {
   };
 }
 
-observable({
-  next: val => console.log(val),
-  complete: () => console.log('complete')
-});
-
-const mappedObservable = map(observable, x => x * 2);
-
-mappedObservable({
-  next: val => console.log(val),
-  complete: () => console.log('complete')
-});
-
 /////////////////////////////
 // Observables with classes
+
 class Observable {
 
   constructor(observableFn) {
@@ -59,16 +44,4 @@ const values$ = new Observable(observer => {
   observer.next(2);
   observer.next(3);
   observer.complete(1);
-});
-
-values$.subscribe({
-  next: val => console.log(val),
-  complete: () => console.log('complete')
-});
-
-const mappedValues$ = values$.map(x => x * 2);
-
-mappedValues$.subscribe({
-  next: val => console.log(val),
-  complete: () => console.log('complete')
 });

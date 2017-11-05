@@ -37,6 +37,20 @@ class Observable {
       });
     });
   }
+
+  // Interval as an example for an async observable.
+  static interval(intervalMs) {
+    return new Observable(observer => {
+      let count = 1;
+      const interval = setInterval(() => {
+        observer.next(count++);
+      }, intervalMs);
+      // Return subscription object containing method to unsubscribe.
+      return {
+        unsubscribe: () => clearInterval(interval)
+      }
+    });
+  }
 }
 
 const values$ = new Observable(observer => {

@@ -63,5 +63,21 @@ describe('observable', () => {
       expect(completed).toBeTruthy();
     });
 
+    it('should emit interval values', (done) => {
+      const values = [];
+
+      const subscription = Observable.interval(500)
+        .subscribe({
+          next: val => {
+            values.push(val);
+            if (val === 3) {
+              subscription.unsubscribe();
+              expect(values).toEqual([1, 2, 3]);
+              done();
+            }
+          }
+        });
+    })
+
   });
 });

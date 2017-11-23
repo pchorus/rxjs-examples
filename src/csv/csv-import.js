@@ -31,7 +31,7 @@ function createObjectsFromCsv(csv) {
   // Create Observable for property names.
   let properties$ = csvLines$
     .first()
-    .mergeMap(val => val.split(';'));
+    .mergeMap(val => Rx.Observable.from(val.split(';')));
 
   // Map each data line of file to an object.
   return csvLines$

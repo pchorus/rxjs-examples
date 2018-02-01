@@ -78,4 +78,35 @@ describe('operator', () => {
 
     expect(result).toEqual([100, 200, 300]);
   });
+
+  it('repeatWhen()', () => {
+    const result = [];
+
+    let counter = 0;
+    const values$ = Rx.Observable.of(1, 2, 3);
+
+    // repeatWhen() takes a function that has an observable as argument.
+    // The function's return value is an observable as well.
+    // If this observable calls next(), the stream will resubscribe to the source observable.
+    // If this observable calls complete(), it does not resubscribe to the source observable.
+    // Important things to know:
+    // - The returning observable must be connected to the input observable ("notifications" in my example),
+    //   i.e. the returned observable must be connected via an operator (e.g. flatMap) to the input observable or it must return itself.
+    // - The returning observable does only emit a single value or complete.
+
+    const toRepeatOrNotToRepeat$ = new Rx.Observable(observer => {
+      counter++;
+      if (counter < 2) {
+        observer.next();
+      } else {
+        observer.complete();
+      }
+    });
+
+    values$.repeatWhen(notifications =>
+      notifications.flatMap(() => toRepeatOrNotToRepeat$))
+        .subscribe(val => result.push(val));
+
+    expect(result).toEqual([1, 2, 3, 1, 2, 3])
+  });
 });

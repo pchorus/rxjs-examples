@@ -11,17 +11,17 @@ module.exports = function (config) {
     files: ['src/**/*.ts'],
     exclude: ['src/index.js'],
     preprocessors: {
-      "**/*.ts": ["karma-typescript"],
-      'src/**/*.ts': 'coverage'
+      '**/*.ts': ['karma-typescript'],
+      'src/**/*.ts': 'coverage',
     },
     reporters: ['progress', 'karma-typescript', 'junit', 'coverage'],
     junitReporter: {
       outputDir: '',
       useBrowserName: false,
-      outputFile: 'test-results.xml'
+      outputFile: 'test-results.xml',
     },
     karmaTypescriptConfig: {
-      tsconfig: "./tsconfig.json",
+      tsconfig: './tsconfig.json',
     },
     port: 9876,
     colors: true,
@@ -32,10 +32,10 @@ module.exports = function (config) {
     customLaunchers: {
       ChromeNoSandbox: {
         base: 'Chrome',
-        flags: ['--no-sandbox']
-      }
+        flags: ['--no-sandbox'],
+      },
     },
     captureTimeout: 60000,
-    singleRun: false
+    singleRun: false,
   });
 };

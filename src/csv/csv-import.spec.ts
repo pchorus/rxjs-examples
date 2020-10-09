@@ -1,19 +1,25 @@
-import { createObjectsFromCsv, createObjectsFromCsvWithoutRx } from './csv-import';
+import {
+  createObjectsFromCsv,
+  createObjectsFromCsvWithoutRx,
+} from './csv-import';
 
 describe('csv-import', () => {
   const csv = `prop1;prop2;prop3
 1;2;3
 A;B;C`;
 
-  const expected = [{
-    prop1: '1',
-    prop2: '2',
-    prop3: '3'
-  }, {
-    prop1: 'A',
-    prop2: 'B',
-    prop3: 'C'
-  }];
+  const expected = [
+    {
+      prop1: '1',
+      prop2: '2',
+      prop3: '3',
+    },
+    {
+      prop1: 'A',
+      prop2: 'B',
+      prop3: 'C',
+    },
+  ];
 
   it('should import correctly', () => {
     const result: any[] = [];

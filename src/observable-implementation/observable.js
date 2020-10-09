@@ -4,7 +4,7 @@
 /////////////////////////////
 // Observables with functions
 
-const observable = (observer) => {
+const observable = observer => {
   observer.next(1);
   observer.next(2);
   observer.next(3);
@@ -15,7 +15,7 @@ function map(observable, fn) {
   return observer => {
     observable({
       next: val => observer.next(fn(val)),
-      complete: () => observer.complete()
+      complete: () => observer.complete(),
     });
   };
 }
@@ -24,7 +24,6 @@ function map(observable, fn) {
 // Observables with classes
 
 class Observable {
-
   constructor(observableFn) {
     this.subscribe = observableFn;
   }
@@ -33,7 +32,7 @@ class Observable {
     return new Observable(observer => {
       return this.subscribe({
         next: val => observer.next(mapFn(val)),
-        complete: () => observer.complete()
+        complete: () => observer.complete(),
       });
     });
   }
@@ -47,8 +46,8 @@ class Observable {
       }, intervalMs);
       // Return subscription object containing method to unsubscribe.
       return {
-        unsubscribe: () => clearInterval(interval)
-      }
+        unsubscribe: () => clearInterval(interval),
+      };
     });
   }
 }

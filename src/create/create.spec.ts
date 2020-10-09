@@ -17,13 +17,15 @@ describe('create observable', () => {
     let result: any[] = [];
     const obj = {
       firstname: 'John',
-      lastname: 'Doe'
+      lastname: 'Doe',
     };
     of(obj).subscribe(val => result.push(val));
-    expect(result).toEqual([{
-      firstname: 'John',
-      lastname: 'Doe'
-    }]);
+    expect(result).toEqual([
+      {
+        firstname: 'John',
+        lastname: 'Doe',
+      },
+    ]);
   });
 
   it('from click event should work', () => {
@@ -52,5 +54,4 @@ describe('create observable', () => {
   //
   //   expect(inputValue).toEqual('abc');
   // });
-
 });

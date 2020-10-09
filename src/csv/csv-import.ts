@@ -25,22 +25,29 @@
  * @param csv {string} containing the csv input.
  * @returns {*|Observable<any>} emitting the resulting objects one by one.
  */
-function createObjectsFromCsv(csv) {
-  const csvLines$ = Rx.Observable.from(csv.split('\n'));
+import { from, zip } from 'rxjs';
+import { first, map, mergeMap, reduce, skip } from 'rxjs/operators';
+
+export function createObjectsFromCsv(csv: string) {
+  const csvLines$ = from(csv.split('\n'));
 
   // Create Observable for property names.
-  let properties$ = csvLines$
-    .first()
-    .mergeMap(val => Rx.Observable.from(val.split(';')));
+  let properties$ = csvLines$.pipe(
+    first(),
+    mergeMap(val => from(val.split(';')))
+  );
 
   // Map each data line of file to an object.
-  return csvLines$
-    .skip(1)
-    .map(val => val.split(';'))
-    .mergeMap(val =>
+  return csvLines$.pipe(
+    skip(1),
+    map(val => val.split(';')),
+    mergeMap(val =>
       // Merging property names and values of current line to an object
-      Rx.Observable.zip(properties$, val)
-        .reduce((acc, curr) => Object.assign(acc, { [curr[0]]: curr[1] }), {}));
+      zip(properties$, from(val)).pipe(
+        reduce((acc, [currentLeft, currentRight]) => Object.assign(acc, { [currentLeft]: currentRight }), {})
+      )
+    )
+  );
 }
 
 /**
@@ -48,8 +55,8 @@ function createObjectsFromCsv(csv) {
  * @param csv {string} containing the csv input.
  * @returns {Array} containing the resulting objects.
  */
-function createObjectsFromCsvWithoutRx(csv) {
-  const result = [];
+export function createObjectsFromCsvWithoutRx(csv: string) {
+  const result: any = [];
   const csvLines = csv.split('\n');
 
   const propertyNames = csvLines[0].split(';');
@@ -66,9 +73,9 @@ function createObjectsFromCsvWithoutRx(csv) {
  * @param propValues {Array} containing the property values
  * @returns {{}} resulting object
  */
-function createObject(propNames, propValues) {
+function createObject(propNames: string[], propValues: string[]) {
   if (propNames.length === propValues.length) {
-    let obj = {};
+    let obj: any = {};
 
     for (let i = 0; i < propNames.length; ++i) {
       obj[propNames[i]] = propValues[i];

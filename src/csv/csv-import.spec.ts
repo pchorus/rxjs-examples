@@ -1,4 +1,5 @@
-/* global describe, it */
+import { createObjectsFromCsv, createObjectsFromCsvWithoutRx } from './csv-import';
+
 describe('csv-import', () => {
   const csv = `prop1;prop2;prop3
 1;2;3
@@ -15,7 +16,7 @@ A;B;C`;
   }];
 
   it('should import correctly', () => {
-    const result = [];
+    const result: any[] = [];
     createObjectsFromCsv(csv).subscribe(obj => result.push(obj));
 
     expect(result).toEqual(expected);

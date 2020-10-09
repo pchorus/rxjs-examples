@@ -7,17 +7,19 @@
   "scripts": {
     "test": "karma start karma.conf.js --single-run"
   },
-  "dependencies": {
-    "rxjs": "^5.4.3"
-  },
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "rxjs": "^6.6.3"
+  },
   "devDependencies": {
-    "jasmine-core": "^2.8.0",
-    "karma": "^1.7.1",
-    "karma-chrome-launcher": "^2.2.0",
-    "karma-coverage": "^1.1.1",
-    "karma-jasmine": "^1.1.0",
-    "karma-junit-reporter": "^1.2.0"
+    "@types/jasmine": "^3.5.14",
+    "karma": "^5.2.3",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-coverage": "^2.0.3",
+    "karma-jasmine": "^4.0.1",
+    "karma-junit-reporter": "^2.0.1",
+    "karma-typescript": "^5.2.0",
+    "typescript": "^4.0.3"
   }
 }

@@ -44,7 +44,11 @@ export function createObjectsFromCsv(csv: string) {
     mergeMap(val =>
       // Merging property names and values of current line to an object
       zip(properties$, from(val)).pipe(
-        reduce((acc, [currentLeft, currentRight]) => Object.assign(acc, { [currentLeft]: currentRight }), {})
+        reduce(
+          (acc, [currentLeft, currentRight]) =>
+            Object.assign(acc, { [currentLeft]: currentRight }),
+          {}
+        )
       )
     )
   );

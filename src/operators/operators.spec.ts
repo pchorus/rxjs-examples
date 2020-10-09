@@ -1,13 +1,21 @@
 import { from, Observable, of } from 'rxjs';
-import { filter, groupBy, map, mergeMap, pluck, reduce, repeatWhen } from 'rxjs/operators';
+import {
+  filter,
+  groupBy,
+  map,
+  mergeMap,
+  pluck,
+  reduce,
+  repeatWhen,
+} from 'rxjs/operators';
 
 describe('operator', () => {
   it('map()', () => {
     const result: number[] = [];
 
-    from([1, 2, 3, 4, 5]).pipe(
-      map(x => 10 * x)
-    ).subscribe(val => result.push(val));
+    from([1, 2, 3, 4, 5])
+      .pipe(map(x => 10 * x))
+      .subscribe(val => result.push(val));
 
     expect(result).toEqual([10, 20, 30, 40, 50]);
   });
@@ -15,17 +23,17 @@ describe('operator', () => {
   it('filter()', () => {
     const result: number[] = [];
 
-    from([1, 2, 3, 4, 5]).pipe(
-      filter(val => val > 2)
-    ).subscribe(val => result.push(val));
+    from([1, 2, 3, 4, 5])
+      .pipe(filter(val => val > 2))
+      .subscribe(val => result.push(val));
 
     expect(result).toEqual([3, 4, 5]);
   });
 
   it('reduce()', () => {
-    from([1, 2, 3, 4, 5]).pipe(
-      reduce((acc, val) => acc + val, 0)
-    ).subscribe(val => expect(val).toEqual(15));
+    from([1, 2, 3, 4, 5])
+      .pipe(reduce((acc, val) => acc + val, 0))
+      .subscribe(val => expect(val).toEqual(15));
   });
 
   it('mergeMap()', () => {
@@ -40,9 +48,7 @@ describe('operator', () => {
       observer.complete();
     });
 
-    both$.pipe(
-      mergeMap(val => val)
-    ).subscribe(val => result.push(val));
+    both$.pipe(mergeMap(val => val)).subscribe(val => result.push(val));
 
     expect(result).toEqual([1, 2, 3, 4, 5]);
   });
@@ -56,10 +62,12 @@ describe('operator', () => {
       { id: 'third', value: 3 },
       { id: 'fourth', value: 4 },
       { id: 'fifth', value: 5 },
-    ]).pipe(
-      groupBy(val => val.value % 2),
-      mergeMap(group => group.pipe(reduce((acc, val) => acc + val.value, 0)))
-    ).subscribe(groupVal => result.push(groupVal));
+    ])
+      .pipe(
+        groupBy(val => val.value % 2),
+        mergeMap(group => group.pipe(reduce((acc, val) => acc + val.value, 0)))
+      )
+      .subscribe(groupVal => result.push(groupVal));
 
     // First value is sum of odd numbers (9) and second value is sum of even numbers (6).
     expect(result).toEqual([9, 6]);
@@ -72,9 +80,11 @@ describe('operator', () => {
       { id: 'first', value: 100 },
       { id: 'second', value: 200 },
       { id: 'third', value: 300 },
-    ]).pipe(
-      pluck('value') // same as: .map(val => val.value)
-    ).subscribe(val => result.push(val));
+    ])
+      .pipe(
+        pluck('value') // same as: .map(val => val.value)
+      )
+      .subscribe(val => result.push(val));
 
     expect(result).toEqual([100, 200, 300]);
   });
@@ -96,15 +106,17 @@ describe('operator', () => {
 
     const toRepeatOrNotToRepeat$ = new Observable(observer => {
       counter++;
-      counter < 2
-        ? observer.next()
-        : observer.complete();
+      counter < 2 ? observer.next() : observer.complete();
     });
 
-    values$.pipe(
-      repeatWhen(notifications => notifications.pipe(mergeMap(() => toRepeatOrNotToRepeat$)))
-    ).subscribe(val => result.push(val));
+    values$
+      .pipe(
+        repeatWhen(notifications =>
+          notifications.pipe(mergeMap(() => toRepeatOrNotToRepeat$))
+        )
+      )
+      .subscribe(val => result.push(val));
 
-    expect(result).toEqual([1, 2, 3, 1, 2, 3])
+    expect(result).toEqual([1, 2, 3, 1, 2, 3]);
   });
 });

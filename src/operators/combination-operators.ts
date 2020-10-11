@@ -189,8 +189,8 @@ describe('combination operator', () => {
         take(3)
       );
 
-    const a$ = makeInterval('A', 0, 2);
-    const b$ = makeInterval('B', 3, 1);
+    const a$ = makeInterval('A', 0, 30);
+    const b$ = makeInterval('B', 20, 20);
 
     a$.pipe(
       withLatestFrom(b$),

@@ -1,4 +1,4 @@
-# RxJS Examples [![Build Status](https://travis-ci.org/pchorus/rxjs-examples.svg?branch=master)](https://travis-ci.org/pchorus/rxjs-examples)
+# RxJS Examples [![Actions Status](https://github.com/pchorus/rxjs-examples/workflows/CI/badge.svg)](https://github.com/pchorus/rxjs-examples/actions)
 
 Examples on how to create observables and how to use operators in RxJS.
 

@@ -1,6 +1,6 @@
 # RxJS Examples [![Build Status](https://travis-ci.org/pchorus/rxjs-examples.svg?branch=master)](https://travis-ci.org/pchorus/rxjs-examples)
 
-Examples on how to create observables and how to use operators in RxJS 5.
+Examples on how to create observables and how to use operators in RxJS.
 
 The folders contain the following examples
 

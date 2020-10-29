@@ -9,16 +9,17 @@ describe('combination operator marble test', () => {
   it('combineLatest combines latest values of multiple streams', () => {
     const testScheduler = createTestScheduler();
     testScheduler.run(({ cold, expectObservable }) => {
-      const a$ = cold(' a---b---(c|)', { a: 'A0', b: 'A1', c: 'A2' });
-      const b$ = cold(' a---b---(c|)', { a: 'B0', b: 'B1', c: 'B2' });
-      const expected = 'v---(wx)(yz|)';
+      const a$ = cold(' a-----b------(c|)', { a: 'A0', b: 'A1', c: 'A2' });
+      const b$ = cold(' -a-b-----(c|)', { a: 'B0', b: 'B1', c: 'B2' });
+      const expected = '-v-w--x--y---(z|)';
       const values = {
         v: ['A0', 'B0'],
-        w: ['A1', 'B0'],
+        w: ['A0', 'B1'],
         x: ['A1', 'B1'],
-        y: ['A2', 'B1'],
+        y: ['A1', 'B2'],
         z: ['A2', 'B2'],
       };
+
       expectObservable(combineLatest([a$, b$])).toBe(expected, values);
     });
   });
